@@ -9,7 +9,7 @@ USER irpf
 WORKDIR /home/irpf
 
 # Download and expand the app into ~/app
-ARG url=http://downloadirpf.receita.fazenda.gov.br/irpf/2020/irpf/arquivos/IRPF2020-1.7.zip
+ARG url=http://downloadirpf.receita.fazenda.gov.br/irpf/2020/irpf/arquivos/IRPF2020-1.9.zip
 RUN wget "$url" -O app.zip --no-check-certificate && \
     unzip app.zip && \
     rm app.zip
