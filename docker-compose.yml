@@ -3,10 +3,8 @@ services:
   irpf:
     container_name: irpf
     image: rochacbruno/irpf
-    build: .
     environment:
       - DISPLAY
       - _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/ProgramasRFB:/home/irpf/ProgramasRFB
