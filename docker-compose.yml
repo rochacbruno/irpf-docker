@@ -3,7 +3,6 @@ services:
   irpf:
     container_name: irpf
     image: rochacbruno/irpf
-    build: .
     environment:
       - DISPLAY
       - _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
