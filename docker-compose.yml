@@ -7,4 +7,5 @@ services:
       - DISPLAY
       - _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/ProgramasRFB:/home/irpf/ProgramasRFB

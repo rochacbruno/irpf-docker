@@ -30,26 +30,31 @@ build:  ## Build
 
 .PHONY: Start
 start:  ## Start
+ifeq ($(CURRENT_OS),Darwin)
 ifeq (, $(shell command -v socat))
 	$(error "No socat in $(PATH)")
 endif
 	socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$$DISPLAY\" && sleep 1 &
-ifeq ($(CURRENT_OS),Ubuntu)
-	DISPLAY="docker.host.internal:0" docker-compose up
-endif
-ifeq ($(CURRENT_OS),Darwin)
 	DISPLAY="docker.for.mac.host.internal:0" docker-compose up
 endif
-	killall -9 socat
-ifeq ($(CURRENT_OS),Darwin)
-	killall -9 Xquartz
+ifeq ($(CURRENT_OS),Ubuntu)
+	xhost +local:docker
+	docker-compose up
 endif
+	make stop
 
 stop:
-	docker-compose down
+	-docker-compose down
+ifeq ($(CURRENT_OS),Ubuntu)
+	-xhost -local:docker
+endif
+ifeq ($(CURRENT_OS),Darwin)
+	-killall -9 socat
+	-killall -9 Xquartz
+endif
 
 clean:
-	-docker-compose down
-	-docker image rm $(TAG)
+	make stop
+	docker image rm $(TAG)
 
 .PHONY: all clean
